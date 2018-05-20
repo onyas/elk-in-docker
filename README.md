@@ -6,7 +6,7 @@
 
 ### Quick Start
 
-If you want to run hadoop in cluster,in current folder run:
+If you want to run ELK in cluster,in current folder run:
 
 ```
 	docker-compose up
