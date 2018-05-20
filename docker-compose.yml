@@ -1,0 +1,24 @@
+version:  '2'
+services:
+
+  elk:
+    image: fineplace/elk
+    container_name: elk
+    networks:
+      default:
+        ipv4_address: 172.16.0.110
+    hostname: elk
+    tty: true
+    stdin_open: true
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.0.0/16
+        gateway: 172.16.0.254
+

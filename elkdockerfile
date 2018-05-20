@@ -1,0 +1,25 @@
+FROM fineplace/java8
+MAINTAINER fineplace <master@fineplace.cn>
+
+ADD elasticsearch-6.2.4.tar.gz /usr/local
+ADD kibana-6.2.4-linux-x86_64.tar.gz /usr/local
+ADD logstash-6.2.4.tar.gz /usr/local
+ADD filebeat-6.2.4-linux-x86_64.tar.gz /usr/local
+
+COPY elk-1.0-SNAPSHOT.jar /usr/local
+COPY logstash.conf /usr/local/logstash-6.2.4
+COPY elk-entrypoint.sh /usr/bin/
+RUN chmod a+x /usr/bin/elk-entrypoint.sh \
+	&& yum -y install epel-release \
+	&& yum -y install python-pip \
+	&& yum -y install nc \
+	&& groupadd esgroup	\
+	&& useradd es -g esgroup \
+	&& chown -R es:esgroup /usr/local/*6.2.4*
+USER 	es
+RUN	echo 'network.host: 172.16.0.110' >> /usr/local/elasticsearch-6.2.4/config/elasticsearch.yml	\
+	&& echo 'server.host: "172.16.0.110"' >> /usr/local/kibana-6.2.4-linux-x86_64/config/kibana.yml \
+	&& echo 'elasticsearch.url: "http://172.16.0.110:9200"' >> /usr/local/kibana-6.2.4-linux-x86_64/config/kibana.yml
+
+ENTRYPOINT [ "sh", "-c", "./usr/bin/elk-entrypoint.sh; bash"]
+
