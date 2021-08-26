@@ -25,4 +25,4 @@ Finally you will find some logs in the Discover tab.
 
 ### Contributing, feedback, contact
 
-Any kind of feedback/criticism would be greatly appreciated. Welcome to join our qq group chat(741686147)
+Any kind of feedback/criticism would be greatly appreciated. 
